@@ -1,31 +1,17 @@
 <?php
 
-class Database {
-    // This variable holds the database connection
-    private static $connection = null;
+require_once __DIR__ . '/../Core/Database.php';
 
-    // This is the connect() function your DashboardService is looking for
-    public static function connect() {
-        
-        // If we haven't connected yet, establish the connection
-        if (self::$connection === null) {
-            
-            // The credentials from your first error message
-            $host = 'localhost';
-            $username = 'root';
-            $password = ''; // Leave blank if you have no XAMPP password
-            $database = 'mca_event'; 
+class DashboardService {
 
-            // Create a new mysqli connection
-            self::$connection = new mysqli($host, $username, $password, $database);
+    public function stats() {
 
-            // Check if the connection failed
-            if (self::$connection->connect_error) {
-                die("Database connection failed: " . self::$connection->connect_error);
-            }
-        }
+        $db = Database::connect();
 
-        // Return the active connection
-        return self::$connection;
+        return [
+            'users' => $db->query("SELECT COUNT(*) c FROM users")->fetch_assoc()['c'],
+            'events' => $db->query("SELECT COUNT(*) c FROM events")->fetch_assoc()['c'],
+            'registrations' => $db->query("SELECT COUNT(*) c FROM registrations")->fetch_assoc()['c']
+        ];
     }
 }

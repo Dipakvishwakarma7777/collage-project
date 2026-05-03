@@ -1,5 +1,5 @@
 <?php
-require_once "../app/Models/Event.php";
+require_once __DIR__ . '/../Models/Event.php';
 
 class EventController {
     public function index(){

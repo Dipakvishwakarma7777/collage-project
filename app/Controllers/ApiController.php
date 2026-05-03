@@ -1,5 +1,5 @@
 <?php
-require_once "../app/Models/Registration.php";
+require_once __DIR__ . '/../Models/Registration.php';
 
 class ApiController {
     public function register(){
